@@ -38,11 +38,12 @@ class JUnit:
 
     def exec_with_mutant(self, suite_dir, suite_classes_dir, sut_class,
                          test_class, mutant_dir, timeout=TIMEOUT):
+        mergeClasspath = ":/home/ines/Documents/ic/example-project-evosuite/merge/target/dependency/apiguardian-api-1.0.0.jar:/home/ines/Documents/ic/example-project-evosuite/merge/target/dependency/commons-lang3-3.0.jar:/home/ines/Documents/ic/example-project-evosuite/merge/target/dependency/hamcrest-core-1.3.jar:/home/ines/Documents/ic/example-project-evosuite/merge/target/dependency/junit-4.13-beta-1.jar:/home/ines/Documents/ic/example-project-evosuite/merge/target/dependency/junit-jupiter-api-5.0.3.jar:/home/ines/Documents/ic/example-project-evosuite/merge/target/dependency/junit-platform-commons-1.0.3.jar:/home/ines/Documents/ic/example-project-evosuite/merge/target/dependency/opentest4j-1.0.0.jar:/home/ines/Documents/ic/example-project-evosuite/merge/target/classes/"
         classpath = generate_classpath([
             JMOCKIT, JUNIT, HAMCREST, EVOSUITE_RUNTIME,
             suite_classes_dir,
             mutant_dir,
-            self.classpath
+            self.classpath, mergeClasspath
         ])
 
         return self._exec(suite_dir, sut_class, test_class, classpath,

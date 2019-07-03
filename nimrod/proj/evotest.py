@@ -69,12 +69,12 @@ if __name__ == '__main__':
     thread_evosuite_diff.join()
     print("ended")
 
-    #test_result = evo.try_evosuite_diff(evo.classes_dir,evo.sut_class, evo.dRegCp)#testes que passam em classes_dir e não passam na base
+    test_result = evo.try_evosuite_diff(evo.classes_dir,evo.sut_class, evo.dRegCp)#testes que passam em classes_dir e não passam na base
 
-    test_result2 = evo.try_evosuite_diff(evo.dRegCp,evo.sut_class, evo.classes_dir) #
+    #test_result2 = evo.try_evosuite_diff(evo.dRegCp,evo.sut_class, evo.classes_dir) #
 
-    #print(test_result)
-    print(test_result2)
+    print(test_result)
+    #print(test_result2)
     #print("merge")
 
     #test_result3 = evo.try_evosuite_diff(evo.classes_dir,evo.sut_class, evo.mergeDir)
