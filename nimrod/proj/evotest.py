@@ -25,9 +25,9 @@ class evotest:
 
 
     def __init__(self):
-        self.classes_dir = '/home/ines/Documents/ic/example-project-evosuite/base/target/dependency/:/home/ines/Documents/ic/example-project-evosuite/base/target/dependency/apiguardian-api-1.0.0.jar:/home/ines/Documents/ic/example-project-evosuite/base/target/dependency/commons-lang3-3.0.jar:/home/ines/Documents/ic/example-project-evosuite/base/target/dependency/hamcrest-core-1.3.jar:/home/ines/Documents/ic/example-project-evosuite/base/target/dependency/junit-4.13-beta-1.jar:/home/ines/Documents/ic/example-project-evosuite/base/target/dependency/junit-jupiter-api-5.0.3.jar:/home/ines/Documents/ic/example-project-evosuite/base/target/dependency/junit-platform-commons-1.0.3.jar:/home/ines/Documents/ic/example-project-evosuite/base/target/dependency/opentest4j-1.0.0.jar:/home/ines/Documents/ic/example-project-evosuite/base/target/classes/'
+        self.dRegCp = '/home/ines/Documents/ic/example-project-evosuite/base/target/dependency/:/home/ines/Documents/ic/example-project-evosuite/base/target/dependency/apiguardian-api-1.0.0.jar:/home/ines/Documents/ic/example-project-evosuite/base/target/dependency/commons-lang3-3.0.jar:/home/ines/Documents/ic/example-project-evosuite/base/target/dependency/hamcrest-core-1.3.jar:/home/ines/Documents/ic/example-project-evosuite/base/target/dependency/junit-4.13-beta-1.jar:/home/ines/Documents/ic/example-project-evosuite/base/target/dependency/junit-jupiter-api-5.0.3.jar:/home/ines/Documents/ic/example-project-evosuite/base/target/dependency/junit-platform-commons-1.0.3.jar:/home/ines/Documents/ic/example-project-evosuite/base/target/dependency/opentest4j-1.0.0.jar:/home/ines/Documents/ic/example-project-evosuite/base/target/classes/'
+        self.classes_dir = '/home/ines/Documents/ic/example-project-evosuite/left/target/dependency/:/home/ines/Documents/ic/example-project-evosuite/left/target/dependency/apiguardian-api-1.0.0.jar:/home/ines/Documents/ic/example-project-evosuite/left/target/dependency/commons-lang3-3.0.jar:/home/ines/Documents/ic/example-project-evosuite/left/target/dependency/hamcrest-core-1.3.jar:/home/ines/Documents/ic/example-project-evosuite/left/target/dependency/junit-4.13-beta-1.jar:/home/ines/Documents/ic/example-project-evosuite/left/target/dependency/junit-jupiter-api-5.0.3.jar:/home/ines/Documents/ic/example-project-evosuite/left/target/dependency/junit-platform-commons-1.0.3.jar:/home/ines/Documents/ic/example-project-evosuite/left/target/dependency/opentest4j-1.0.0.jar:/home/ines/Documents/ic/example-project-evosuite/left/target/classes'
         self.sut_class = "br.com.Ball"
-        self.dRegCp = '/home/ines/Documents/ic/example-project-evosuite/left/target/dependency/:/home/ines/Documents/ic/example-project-evosuite/left/target/dependency/apiguardian-api-1.0.0.jar:/home/ines/Documents/ic/example-project-evosuite/left/target/dependency/commons-lang3-3.0.jar:/home/ines/Documents/ic/example-project-evosuite/left/target/dependency/hamcrest-core-1.3.jar:/home/ines/Documents/ic/example-project-evosuite/left/target/dependency/junit-4.13-beta-1.jar:/home/ines/Documents/ic/example-project-evosuite/left/target/dependency/junit-jupiter-api-5.0.3.jar:/home/ines/Documents/ic/example-project-evosuite/left/target/dependency/junit-platform-commons-1.0.3.jar:/home/ines/Documents/ic/example-project-evosuite/left/target/dependency/opentest4j-1.0.0.jar:/home/ines/Documents/ic/example-project-evosuite/left/target/classes'
         self.mergeDir = '/home/ines/Documents/ic/example-project-evosuite/merge/target/dependency/:/home/ines/Documents/ic/example-project-evosuite/merge/target/dependency/apiguardian-api-1.0.0.jar:/home/ines/Documents/ic/example-project-evosuite/merge/target/dependency/commons-lang3-3.0.jar:/home/ines/Documents/ic/example-project-evosuite/merge/target/dependency/hamcrest-core-1.3.jar:/home/ines/Documents/ic/example-project-evosuite/merge/target/dependency/junit-4.13-beta-1.jar:/home/ines/Documents/ic/example-project-evosuite/merge/target/dependency/junit-jupiter-api-5.0.3.jar:/home/ines/Documents/ic/example-project-evosuite/merge/target/dependency/junit-platform-commons-1.0.3.jar:/home/ines/Documents/ic/example-project-evosuite/merge/target/dependency/opentest4j-1.0.0.jar:/home/ines/Documents/ic/example-project-evosuite/merge/target/classes'
         self.java = Java(get_config()['java_home'])
         self.maven = Maven(self.java, get_config()['maven_home'])
@@ -69,14 +69,24 @@ if __name__ == '__main__':
     thread_evosuite_diff.join()
     print("ended")
 
-    test_result = evo.try_evosuite_diff(evo.classes_dir,evo.sut_class, evo.dRegCp)
-    #test_result = evo.try_evosuite_diff(evo.classes_dir,evo.sut_class, evo.mergeDir)
-    #test_result = evo.try_evosuite_diff(evo.dRegCp,evo.sut_class, evo.mergeDir)
+    #test_result = evo.try_evosuite_diff(evo.classes_dir,evo.sut_class, evo.dRegCp)#testes que passam em classes_dir e não passam na base
 
-    print(test_result)
-    if test_result.fail_tests > 0 or test_result.timeout:
+    test_result2 = evo.try_evosuite_diff(evo.dRegCp,evo.sut_class, evo.classes_dir) #
+
+    #print(test_result)
+    print(test_result2)
+    #print("merge")
+
+    #test_result3 = evo.try_evosuite_diff(evo.classes_dir,evo.sut_class, evo.mergeDir)
+    #test_result4 = evo.try_evosuite_diff(evo.dRegCp,evo.sut_class, evo.mergeDir)
+
+    #print(test_result3)
+    #print(test_result4)
+
+
+    #if test_result.fail_tests > 0 or test_result.timeout:
     #    results = evo.create_nimrod_result(test_result, True, 'evosuite')
-          print("dsdsd")
+    #      print("dsdsd")
 
 '''
     test_result = evo.try_evosuite_diff(evo.classes_dir, evo.tests_src,evo.sut_class)
