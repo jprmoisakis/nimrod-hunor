@@ -81,6 +81,7 @@ class Java:
                                            timeout=timeout,
                                            stderr=subprocess.STDOUT)
         except subprocess.CalledProcessError as e:
+            print(e.output)
             raise e
         except subprocess.TimeoutExpired as e:
             raise e

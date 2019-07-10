@@ -43,7 +43,7 @@ class JUnit:
             JMOCKIT, JUNIT, HAMCREST, EVOSUITE_RUNTIME,
             suite_classes_dir,
             mutant_dir,
-            self.classpath, mergeClasspath
+            self.classpath
         ])
 
         return self._exec(suite_dir, sut_class, test_class, classpath,
