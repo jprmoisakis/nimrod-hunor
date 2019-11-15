@@ -134,7 +134,7 @@ class evotest:
             self.set_method_public(java_file)
             self.add_default_constructor(java_file)
 
-            self.maven.compile(self.project.get_path_local_project(), 120, clean=True, install=True)
+            self.maven.compile(self.project.get_path_local_project(), 10000, clean=True, install=True)
             self.maven.save_dependencies(self.project.get_path_local_project())
             dst = self.projects_folder + self.project.get_project_name() + "/" + data[3][0] + "/" + hash[1]
             if os.path.exists(dst):
@@ -145,7 +145,7 @@ class evotest:
     def generate_dependencies_path(self, scenario, commit_type):
 
         project_folder = self.projects_folder + self.project.get_project_name() + "/" + scenario.get_merge_hash() + "/"
-        dependencies = [(x[0], x[2]) for x in os.walk(project_folder + commit_type + "/target/dependency/")]
+        dependencies = [(x[0], x[2]) for x in os.walk(project_folder + commit_type +"/cloudslang-all" +"/target/dependency/")]
         dep_path = dependencies[0][0]
         final_path = ""
         print(dep_path)
@@ -199,8 +199,19 @@ class evotest:
     @staticmethod
     def add_default_constructor(file):
         for line in fileinput.input(file, inplace=1):
-            if re.search("(((|public|final|abstract|private|static|protected)(\\s+))?(class)(\\s+)(\\w+)(<.*>)?(\\s+extends\\s+\\w+)?(<.*>)?(\\s+implements\\s+)?(.*)?(<.*>)?(\\s*))\\{$", line):
-                print(line.rstrip()+"\npublic Ball(){}\n") #ajust this later
+            search = re.search("(((|public|final|abstract|private|static|protected)(\\s+))?(class)(\\s+)(\\w+)(<.*>)?(\\s+extends\\s+\\w+)?(<.*>)?(\\s+implements\\s+)?(.*)?(<.*>)?(\\s*))\\{$", line)
+            classname = ""
+            if re.search("(public) (.*) { this\(null\); }",line):
+                pass
+            elif search:
+                test = search[0].split(" ")
+                for word in test:
+                    if "public" not in word and "static" not in word and "class" not in word:
+                        classname = word
+                        #print(classname)
+                        break
+
+                print(line.rstrip()+"\npublic "+classname +"(){}\n") #ajust this later
 
             elif re.search(".*?private final.*", line):
                 print(line.replace("private final", "private").rstrip())
@@ -234,7 +245,7 @@ class evotest:
             print(test_result_parent)
             print(test_result_merge)
 
-            evo.write_output_csv_intersec(test_result_base, test_result_parent, test_result_merge, scenario)
+            #evo.write_output_csv_intersec(test_result_base, test_result_parent, test_result_merge, scenario)
             if len(test_result_base[2].intersection(test_result_merge[2])) > 0 and not test_result_parent[1]:
                 if case == "left":
                     conflictLeft = True
@@ -311,14 +322,12 @@ if __name__ == '__main__':
     for scenario in merge_scenarios:
 
         evo.compile_commits(scenario)
-        result_randoop = evo.exec_randoop(evo, scenario)
+        #result_randoop = evo.exec_randoop(evo, scenario)
+        result_randoop = True
+        result_evosuite_diff = True
         result_evosuite = evo.exec_evosuite(evo, scenario)
-        result_evosuite_diff = evo.exec_evosuite_diff(evo, scenario)
-        evo.write_output_results(scenario,result_evosuite, result_evosuite_diff, result_randoop)
-
-
-
-
+        #result_evosuite_diff = evo.exec_evosuite_diff(evo, scenario)
+        evo.write_output_results(scenario, result_evosuite, result_evosuite_diff, result_randoop)
 
 
 

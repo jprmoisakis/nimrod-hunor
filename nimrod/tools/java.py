@@ -82,6 +82,7 @@ class Java:
                                            stderr=subprocess.STDOUT)
         except subprocess.CalledProcessError as e:
             raise e
+
         except subprocess.TimeoutExpired as e:
             raise e
         except FileNotFoundError as e:

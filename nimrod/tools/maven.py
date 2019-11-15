@@ -53,7 +53,7 @@ class Maven:
         try:
             command = [os.path.join(self.maven_home,
                                     os.sep.join(['bin', 'mvn']))]
-            command = command + list(args)
+            command = command + list(args) +['-DskipTests'] #Skip all tests
             return subprocess.check_output(command, cwd=cwd, env=env,
                                            timeout=timeout,
                                            stderr=subprocess.STDOUT)
@@ -83,7 +83,7 @@ class Maven:
             self.clean(project_dir, TIMEOUT)
 
         if install:
-            self.install(project_dir,TIMEOUT)
+            self.install(project_dir, TIMEOUT)
         print("Compiling the project with maven...")
         return self.extract_results(
             self._exec_mvn(project_dir, self.java.get_env(), timeout,'compile').decode('unicode_escape')

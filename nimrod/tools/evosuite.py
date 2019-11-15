@@ -17,8 +17,9 @@ class Evosuite(SuiteGenerator):
             '-jar', EVOSUITE,
             '-projectCP', self.classpath,
             '-class', self.sut_class,
+            '-Dassertion_strategy=all',
             '-Dtimeout', '10000',
-            '-DOUTPUT_DIR=' + self.suite_dir
+            '-DOUTPUT_DIR=' + self.suite_dir,
         ]
 
         params += self.parameters

@@ -130,6 +130,9 @@ class JUnit:
         timeout = False
 
         for test_class in suite.test_classes:
+            # f = open("guru99.txt", "w+")
+            #f.write(test_class + "\r\n")
+
             result = self.exec_with_mutant(suite.suite_dir,
                                            suite.suite_classes_dir, sut_class,
                                            test_class, mutant_dir)
