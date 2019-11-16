@@ -1,15 +1,20 @@
 from git import Repo
 
-class GitProject():
+class GitProject:
 
-    def __init__(self,path_local_project):
+    def __init__(self,path_local_project, path_local_module_analysis, project_name):
         self.path_local_project = path_local_project
-        self.project_name = path_local_project.split("/")[-1]
+        self.path_local_module_analysis = path_local_module_analysis
+        self.project_name = project_name
         self.analysis_directory_path = path_local_project.split("subjects")[0]
-        self.repo = Repo(self.path_local_project)
+        if (path_local_project != ""):
+            self.repo = Repo(self.path_local_project)
 
     def get_path_local_project(self):
         return self.path_local_project
+
+    def get_path_local_module_analysis(self):
+        return self.path_local_module_analysis
 
     def get_project_name(self):
         return self.project_name

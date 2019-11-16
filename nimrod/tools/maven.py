@@ -83,7 +83,8 @@ class Maven:
             self.clean(project_dir, TIMEOUT)
 
         if install:
-            self.install(project_dir, TIMEOUT)
+
+            self.compile(project_dir, TIMEOUT)
         print("Compiling the project with maven...")
         return self.extract_results(
             self._exec_mvn(project_dir, self.java.get_env(), timeout,'compile').decode('unicode_escape')
