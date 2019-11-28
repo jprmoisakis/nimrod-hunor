@@ -36,16 +36,18 @@ class Project_dependecies:
                 self.project.checkout_on_commit(hash[0])
                 self.project.checkout_on_commit(".")
                 self.set_method_public(java_file)
-                #self.add_default_constructor(java_file)
+                self.add_default_constructor(java_file)
 
                 self.maven.compile(self.project.get_path_local_project(), 120, clean=True, install=True)
                 self.maven.save_dependencies(self.project.get_path_local_project())
                 dst = self.projects_folder + self.project.get_project_name() + "/" + data[3][0] + "/" + hash[1]
+                print(dst)
                 if os.path.exists(dst):
                     shutil.rmtree(dst)
-
+                print(self.project.get_path_local_module_analysis())
                 shutil.copytree(self.project.get_path_local_module_analysis(), dst)
-            except:
+            except Exception as e:
+                print(e)
                 print ("The commit "+str(hash) +" was not compilable")
 
     @staticmethod
