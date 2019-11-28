@@ -41,8 +41,9 @@ class Randoop_setup:
             evo.project_dep.mergeDir = evo.project_dep.generate_dependencies_path(scenario, "merge")
 
             conflict_info = self.exec_randoop_all(evo, scenario)
-        except:
-            print("Some project versions could not be evaluated")
+        except Exception as e:
+            print(e)
+            print("Some project versions could not be evaluated - exec randoop")
 
         return conflict_info
 
@@ -78,7 +79,8 @@ class Randoop_setup:
             conflict_info.append(self.behaviour_change.check_different_test_results_for_merge_scenario(test_result_base, test_result_parent,
                                                                                       test_result_merge, path_suite))
 
-        except:
-            print("Some project versions could not be evaluated")
+        except Exception as e:
+            print(e)
+            print("Some project versions could not be evaluated - exec randoop all")
 
         return conflict_info
