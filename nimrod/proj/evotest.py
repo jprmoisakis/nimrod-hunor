@@ -56,28 +56,33 @@ if __name__ == '__main__':
                 result_randoop_left = evo.randoop_setup.exec_randoop_jar(evo, merge, row[10], row[11], row[13])
                 result_randoop_right = evo.randoop_setup.exec_randoop_jar(evo, merge, row[10], row[12], row[13])
 
-                evo.output_report.write_output_results(evo.project_dep.project.get_project_name(), merge, "evosuite-diff", "left", result_evodiff_left)
-                evo.output_report.write_output_results(evo.project_dep.project.get_project_name(),merge, "evosuite-diff", "right", result_evodiff_right)
-                evo.output_report.write_output_results(evo.project_dep.project.get_project_name(),merge, "evosuite", "left", result_evosuite_left)
-                evo.output_report.write_output_results(evo.project_dep.project.get_project_name(),merge, "evosuite", "right", result_evosuite_right)
-                evo.output_report.write_output_results(evo.project_dep.project.get_project_name(), merge, "randoop", "left", result_randoop_left)
-                evo.output_report.write_output_results(evo.project_dep.project.get_project_name(), merge, "randoop", "right", result_randoop_right)
+                evo.output_report.write_output_results(evo.project_dep.project.get_project_name(), merge, "evosuite-diff", "left", result_evodiff_left, row[6], row[7])
+                evo.output_report.write_output_results(evo.project_dep.project.get_project_name(),merge, "evosuite-diff", "right", result_evodiff_right, row[6], row[7])
+                evo.output_report.write_output_results(evo.project_dep.project.get_project_name(),merge, "evosuite", "left", result_evosuite_left, row[6], row[7])
+                evo.output_report.write_output_results(evo.project_dep.project.get_project_name(),merge, "evosuite", "right", result_evosuite_right, row[6], row[7])
+                evo.output_report.write_output_results(evo.project_dep.project.get_project_name(), merge, "randoop", "left", result_randoop_left, row[6], row[7])
+                evo.output_report.write_output_results(evo.project_dep.project.get_project_name(), merge, "randoop", "right", result_randoop_right, row[6], row[7])
 
             else:
                 evo = evotest(row[8], row[9], row[0])
                 merge = MergeScenario(evo.project_dep.project.get_path_local_project, row)
                 evo.project_dep.compile_commits(merge)
 
-                #result_evodiff_left = evo.evosuite_diff_setup.exec_evosuite_diff(evo, merge, "left")
-                #result_evodiff_right = evo.evosuite_diff_setup.exec_evosuite_diff(evo, merge, "right")
-                #result_evosuite_left = evo.evosuite_setup.exec_evosuite(evo, merge, "left")
-                #result_evosuite_right = evo.evosuite_setup.exec_evosuite(evo, merge, "right")
+                result_evodiff_left = evo.evosuite_diff_setup.exec_evosuite_diff(evo, merge, "left")
+                result_evodiff_right = evo.evosuite_diff_setup.exec_evosuite_diff(evo, merge, "right")
+
+                result_evosuite_left = evo.evosuite_setup.exec_evosuite(evo, merge, "left")
+                result_evosuite_right = evo.evosuite_setup.exec_evosuite(evo, merge, "right")
+
                 result_randoop_left = evo.randoop_setup.exec_randoop(evo, merge, "left")
                 result_randoop_right = evo.randoop_setup.exec_randoop(evo, merge, "right")
 
-                #evo.output_report.write_output_results(evo.project_dep.project.get_project_name(), merge, "evosuite-diff", "left", result_evodiff_left)
-                #evo.output_report.write_output_results(evo.project_dep.project.get_project_name(), merge, "evosuite-diff", "right", result_evodiff_right)
-                #evo.output_report.write_output_results(evo.project_dep.project.get_project_name(), merge,"evosuite", "left", result_evosuite_left)
-                #evo.output_report.write_output_results(evo.project_dep.project.get_project_name(), merge,"evosuite", "right", result_evosuite_right)
-                evo.output_report.write_output_results(evo.project_dep.project.get_project_name(), merge,"randoop", "left", result_randoop_left)
-                evo.output_report.write_output_results(evo.project_dep.project.get_project_name(), merge,"randoop", "right", result_randoop_right)
+
+                evo.output_report.write_output_results(evo.project_dep.project.get_project_name(), merge, "evosuite-diff", "left", result_evodiff_left, row[6], row[7])
+                evo.output_report.write_output_results(evo.project_dep.project.get_project_name(), merge, "evosuite-diff", "right", result_evodiff_right, row[6], row[7])
+
+                evo.output_report.write_output_results(evo.project_dep.project.get_project_name(), merge,"evosuite", "left", result_evosuite_left, row[6], row[7])
+                evo.output_report.write_output_results(evo.project_dep.project.get_project_name(), merge,"evosuite", "right", result_evosuite_right, row[6], row[7])
+
+                evo.output_report.write_output_results(evo.project_dep.project.get_project_name(), merge,"randoop", "left", result_randoop_left, row[6], row[7])
+                evo.output_report.write_output_results(evo.project_dep.project.get_project_name(), merge,"randoop", "right", result_randoop_right, row[6], row[7])

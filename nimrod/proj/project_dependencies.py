@@ -96,7 +96,7 @@ class Project_dependecies:
             elif search:
                 test = search[0].split(" ")
                 for word in test:
-                    if "public" not in word and "static" not in word and "class" not in word:
+                    if "public" not in word and "private" not in word and "final" not in word and"static" not in word and "class" not in word:
                         classname = word
                         #print(classname)
                         break
@@ -105,5 +105,7 @@ class Project_dependecies:
 
             elif re.search(".*?private final.*", line):
                 print(line.replace("private final", "private").rstrip())
+            elif re.search(".*?public final.*", line):
+                print(line.replace("public final", "public").rstrip())
             else:
                 print(line.rstrip())
