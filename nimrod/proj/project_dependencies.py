@@ -2,6 +2,7 @@ import os
 import re
 import shutil
 import fileinput
+import subprocess
 from nimrod.tools.java import Java
 from nimrod.tools.maven import Maven
 from nimrod.project_info.git_project import GitProject
@@ -24,6 +25,7 @@ class Project_dependecies:
         self.projects_folder = self.config["projects_folder"]
         self.path_hash_csv = self.config["path_hash_csv"]
         self.path_output_csv = self.config["path_output_csv"]
+        self.path_transformations_jar = self.config["path_transformations_jar"]
 
     def compile_commits(self, scenario):
         java_file = self.find_java_files(self.project.get_path_local_project(), scenario.merge_scenario.get_sut_class())
@@ -35,8 +37,9 @@ class Project_dependecies:
                 self.project.checkout_on_commit(".")
                 self.project.checkout_on_commit(hash[0])
                 self.project.checkout_on_commit(".")
-                self.set_method_public(java_file)
-                self.add_default_constructor(java_file)
+                #self.set_method_public(java_file)
+                #self.add_default_constructor(java_file)
+                self.transform(self, java_file)
 
                 self.maven.compile(self.project.get_path_local_project(), 120, clean=True, install=True)
                 self.maven.save_dependencies(self.project.get_path_local_project())
@@ -73,6 +76,10 @@ class Project_dependecies:
         final_path = dep_path + ":" + final_path + project_folder + commit_type + "/target/classes/"
 
         return final_path
+
+    @staticmethod
+    def transform(self, file):
+        subprocess.check_output(["java", "-jar", self.path_transformations_jar, file])
 
     @staticmethod
     def set_method_public(file):

@@ -15,8 +15,8 @@ class Output_report():
                 filewriter.writerow(output) #
                                             #self.write_each_result(output)
 
-        self.write_each_result(self.formate_output_line(project_name, scenario.merge_scenario.get_merge_hash(), tool, which_parent, "base-parent", criteria_validation, 0, class_information, method_information))
-        self.write_each_result(self.formate_output_line(project_name, scenario.merge_scenario.get_merge_hash(), tool, which_parent, "parent-merge", criteria_validation, 1, class_information, method_information))
+        #self.write_each_result(self.formate_output_line(project_name, scenario.merge_scenario.get_merge_hash(), tool, which_parent, "base-parent", criteria_validation, 0, class_information, method_information))
+        #self.write_each_result(self.formate_output_line(project_name, scenario.merge_scenario.get_merge_hash(), tool, which_parent, "parent-merge", criteria_validation, 1, class_information, method_information))
         self.write_each_result(self.formate_output_line(project_name, scenario.merge_scenario.get_merge_hash(), tool, which_parent, "base-merge", criteria_validation, 2, class_information, method_information))
 
     def write_each_result(self, output):
